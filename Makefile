@@ -5,6 +5,7 @@ run-all:
 
 run-database:
 	docker-compose up -d db
+	docker-compose logs -f
 
 run-server:
 	docker-compose up --build -d server
