@@ -7,9 +7,10 @@ run-database:
 	docker-compose up -d db
 	docker-compose logs -f
 
-run-server:
-	docker-compose up --build -d server
-
 drop-database:
 	docker-compose rm -s db
 	docker volume rm go-start_db
+
+build-server:
+	docker-compose up --build -d server
+	docker-compose logs -f
