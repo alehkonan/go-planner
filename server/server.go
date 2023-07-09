@@ -1,22 +1,36 @@
 package main
 
 import (
-	"html"
-	"net/http"
+	"fmt"
 
-	"github.com/gorilla/mux"
+	"github.com/gofiber/fiber/v2"
 )
 
-func ReadPost(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-
-	w.Write([]byte(html.EscapeString(vars["postId"])))
-}
-
 func main() {
-	r := mux.NewRouter()
+	db, err := ConnectDB()
 
-	r.HandleFunc("/api/posts/{postId}", ReadPost).Methods("GET")
+	if err != nil {
+		fmt.Println("Error connecting to the database:", err)
+		return
+	}
 
-	http.ListenAndServe(":80", r)
+	app := fiber.New()
+
+	app.Get("/words", func(c *fiber.Ctx) error {
+		rows, err := db.Query("SELECT * FROM words")
+
+		if (err != nil) {
+			return c.Status(500).JSON(err)
+		}
+
+		columns, err := rows.Columns()
+
+		if (err != nil) {
+			return c.Status(500).JSON(err)
+		}
+
+		return c.JSON(columns)
+	})
+
+	app.Listen(":80")
 }
