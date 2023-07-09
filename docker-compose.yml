@@ -16,6 +16,10 @@ services:
 
   server:
     build: ./server
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?err}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?err}
+      POSTGRES_DB: ${POSTGRES_DB:?err}
     ports:
       - '80:80'
       - '443:443'
