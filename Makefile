@@ -5,7 +5,7 @@ run-all:
 
 run-database:
 	docker-compose up -d db
-	docker-compose logs -f
+	docker logs -f go-start-db-1
 
 drop-database:
 	docker-compose rm -s db
@@ -13,4 +13,4 @@ drop-database:
 
 build-server:
 	docker-compose up --build -d server
-	docker-compose logs -f
+	docker logs -f go-start-server-1
