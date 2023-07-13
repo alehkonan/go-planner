@@ -27,6 +27,11 @@ services:
       - '443:443'
     depends_on:
       - db
+    x-develop:
+      watch:
+        - action: rebuild
+          path: ./server
+          target: /app
 
 volumes:
   db:

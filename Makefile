@@ -14,3 +14,6 @@ drop-database:
 build-server:
 	docker-compose up --build -d server
 	docker logs -f go-start-server-1
+
+dev-server:
+	docker-compose alpha watch server
