@@ -17,7 +17,7 @@ func ConnectDB() (*sql.DB, error) {
 		return nil, fmt.Errorf("one or more environment variables for DB are not set")
 	}
 
-	connString := fmt.Sprintf("postgres://%s:%s@localhost/%s?sslmode=disable", user, password, name)
+	connString := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s?sslmode=disable", user, password, name)
 
 	db, err := sql.Open("postgres", connString)
 

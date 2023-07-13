@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -14,22 +15,27 @@ func main() {
 		return
 	}
 
+	println(db.Driver())
+
 	app := fiber.New()
 
-	app.Get("/words", func(c *fiber.Ctx) error {
-		rows, err := db.Query("SELECT * FROM words")
+	app.Use("/api", func (c *fiber.Ctx) error {
+		c.Cookie(&fiber.Cookie{ SameSite: fiber.CookieSameSiteNoneMode })
+		return c.Next()
+	})
 
-		if (err != nil) {
-			return c.Status(500).JSON(err)
-		}
+	app.Use(logger.New())
 
-		columns, err := rows.Columns()
+	app.Get("/api/categories", func(c *fiber.Ctx) error {
+		return c.SendString("All categories")
+	})
 
-		if (err != nil) {
-			return c.Status(500).JSON(err)
-		}
+	app.Get("/api/words", func(c *fiber.Ctx) error {
+		return c.SendString("All words")
+	})
 
-		return c.JSON(columns)
+	app.Get("/api/words/:category", func(c *fiber.Ctx) error {
+		return c.SendString("Words of the concrete category")
 	})
 
 	app.Listen(":80")
