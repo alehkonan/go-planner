@@ -15,19 +15,24 @@ func main() {
 		return
 	}
 
-	println(db.Driver())
-
 	app := fiber.New()
 
 	app.Use("/api", func (c *fiber.Ctx) error {
-		c.Cookie(&fiber.Cookie{ SameSite: fiber.CookieSameSiteNoneMode })
+		c.Cookie(&fiber.Cookie{ SameSite: fiber.CookieSameSiteLaxMode })
 		return c.Next()
 	})
 
 	app.Use(logger.New())
 
 	app.Get("/api/categories", func(c *fiber.Ctx) error {
-		return c.SendString("All categories")
+		rows, err := db.Query("SELECT * FROM categories")
+
+		if (err != nil) {
+			println(err.Error())
+			return c.Status(fiber.StatusInternalServerError).SendString("Can't get categories from DB")
+		}
+
+		return c.JSON(rows)
 	})
 
 	app.Get("/api/words", func(c *fiber.Ctx) error {
