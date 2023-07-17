@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"time"
 
@@ -23,10 +22,10 @@ func main() {
 
 	app.Get("/api/categories", func(c *fiber.Ctx) error {
 		type Category struct {
-			id int
-			name string
-			picture_url sql.NullString
-			created_at time.Time
+			Id 						int							`json:"id"`
+			Name 					string					`json:"name"`
+			Picture_url 	*string					`json:"pictureUrl"`
+			Created_at 		time.Time				`json:"createdAt"`
 		}
 
 		var categories []Category
@@ -42,7 +41,7 @@ func main() {
 
 		for rows.Next() {
 			var category Category
-			err := rows.Scan(&category.id, &category.name, &category.picture_url, &category.created_at)
+			err := rows.Scan(&category.Id, &category.Name, &category.Picture_url, &category.Created_at)
 
 			if (err != nil) {
 				return c.Status(fiber.StatusInternalServerError).SendString("Can't get category from rows")
