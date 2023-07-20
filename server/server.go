@@ -20,6 +20,8 @@ func main() {
 
 	app.Use(logger.New())
 
+	app.Static("/", "./static")
+
 	app.Get("/api/categories", func(c *fiber.Ctx) error {
 		type Category struct {
 			Id 						int							`json:"id"`
