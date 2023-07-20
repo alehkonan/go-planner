@@ -16,4 +16,4 @@ build-server:
 	docker logs -f go-start-server-1
 
 dev-server:
-	docker-compose alpha watch server
+	cd ./server && ./bin/air

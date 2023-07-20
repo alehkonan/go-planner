@@ -10,6 +10,6 @@ COPY . .
 
 RUN go build -v -o /usr/local/bin/app ./...
 
-EXPOSE 80 443
+EXPOSE 80
 
 CMD [ "app" ]

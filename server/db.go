@@ -11,13 +11,15 @@ import (
 func ConnectDB() (*sql.DB, error) {
 	user := os.Getenv("POSTGRES_USER")
 	password := os.Getenv("POSTGRES_PASSWORD")
-	name := os.Getenv("POSTGRES_DB")
+	dbName := os.Getenv("POSTGRES_DB")
+	url := os.Getenv("POSTGRES_URL")
+	port := os.Getenv("POSTGRES_PORT")
 
-	if user == "" || password == "" || name == "" {
+	if user == "" || password == "" || dbName == "" || url == "" || port == "" {
 		return nil, fmt.Errorf("one or more environment variables for DB are not set")
 	}
 
-	connString := fmt.Sprintf("postgres://%s:%s@db:5432/%s?sslmode=disable", user, password, name)
+	connString := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", user, password, url, port, dbName)
 
 	db, err := sql.Open("postgres", connString)
 

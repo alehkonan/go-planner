@@ -19,19 +19,15 @@ services:
   server:
     build: ./server
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:?err}
+      POSTGRES_USER: ${POSTGRES_USER:-.env.example}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?err}
-      POSTGRES_DB: ${POSTGRES_DB:?err}
+      POSTGRES_DB: ${POSTGRES_DB:-.env.example}
+      POSTGRES_URL: db
+      POSTGRES_PORT: 5432
     ports:
-      - '80:80'
-      - '443:443'
+      - '80:8000'
     depends_on:
       - db
-    x-develop:
-      watch:
-        - action: rebuild
-          path: ./server
-          target: /app
 
 volumes:
   db:
