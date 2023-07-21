@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"server/handler"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -16,52 +16,19 @@ func main() {
 		return
 	}
 
+	println(db.Stats().InUse)
+
 	app := fiber.New()
 
 	app.Use(logger.New())
 
 	app.Static("/", "./static")
 
-	app.Get("/api/categories", func(c *fiber.Ctx) error {
-		type Category struct {
-			Id 						int							`json:"id"`
-			Name 					string					`json:"name"`
-			Picture_url 	*string					`json:"pictureUrl"`
-			Created_at 		time.Time				`json:"createdAt"`
-		}
+	app.Get("/api/categories", handler.GetCategories)
 
-		var categories []Category
+	app.Get("/api/words", handler.GetWords)
 
-		rows, err := db.Query("SELECT * FROM categories")
-
-		if (err != nil) {
-			println(err.Error())
-			return c.Status(fiber.StatusInternalServerError).SendString("Can't get categories from DB")
-		}
-
-		defer rows.Close()
-
-		for rows.Next() {
-			var category Category
-			err := rows.Scan(&category.Id, &category.Name, &category.Picture_url, &category.Created_at)
-
-			if (err != nil) {
-				return c.Status(fiber.StatusInternalServerError).SendString("Can't get category from rows")
-			}
-
-			categories = append(categories, category)
-		}
-
-		return c.JSON(categories)
-	})
-
-	app.Get("/api/words", func(c *fiber.Ctx) error {
-		return c.SendString("All words")
-	})
-
-	app.Get("/api/words/:category", func(c *fiber.Ctx) error {
-		return c.SendString("Words of the concrete category")
-	})
+	app.Get("/api/words/:category", handler.GetWordsByCategory)
 
 	app.Listen(":8000")
 }

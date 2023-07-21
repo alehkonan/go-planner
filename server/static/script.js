@@ -12,11 +12,17 @@ getCategoriesButton.addEventListener('click', async () => {
   getCategoriesButton.textContent = buttonText;
   getCategoriesButton.removeAttribute('disabled');
 
-  const items = categories?.map((category) => {
-    const item = document.createElement('li');
-    item.textContent = category.name;
-    return item;
-  });
+  if (Array.isArray(categories) && categories.length > 0) {
+    const items = categories.map((category) => {
+      const item = document.createElement('li');
+      item.textContent = category.name;
+      return item;
+    });
 
-  categoriesList.replaceChildren(...items);
+    categoriesList.replaceChildren(...items);
+  } else {
+    const item = document.createElement('li');
+    item.textContent = 'No categories found';
+    categoriesList.replaceChildren(item);
+  }
 });
