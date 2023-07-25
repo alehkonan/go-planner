@@ -1,4 +1,5 @@
-export $(cat .env)
+include .env
+export
 
 run-all:
 	docker-compose up -d
