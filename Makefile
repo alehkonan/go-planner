@@ -17,4 +17,5 @@ build-server:
 	docker logs -f go-start-server-1
 
 dev-server:
+	cd ./server && [ ! -f ./bin/air ] && curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s
 	cd ./server && ./bin/air
