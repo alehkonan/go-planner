@@ -1,7 +1,8 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"server/database"
 	"server/router"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,23 +10,13 @@ import (
 )
 
 func main() {
-	db, err := ConnectDB()
-
-	if err != nil {
-		fmt.Println("Error connecting to the database:", err)
-		return
-	}
-
-	println(db.Stats().InUse)
-
+	database.Connect()
 	app := fiber.New()
-
-	defer app.Shutdown()
 
 	app.Use(favicon.New())
 	app.Static("/", "./static")
 
 	router.SetupRoutes(app)
 
-	app.Listen(":8000")
+	log.Fatal(app.Listen("localhost:8000"))
 }
