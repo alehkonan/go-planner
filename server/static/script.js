@@ -6,7 +6,7 @@ getCategoriesButton.addEventListener('click', async () => {
   getCategoriesButton.textContent = 'Loading';
   getCategoriesButton.setAttribute('disabled', true);
 
-  const response = await fetch('/api/categories');
+  const response = await fetch('/api/category');
   const categories = await response.json();
 
   getCategoriesButton.textContent = buttonText;

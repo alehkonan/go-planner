@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"server/handler"
+	"server/router"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/favicon"
 )
 
 func main() {
@@ -20,15 +20,12 @@ func main() {
 
 	app := fiber.New()
 
-	app.Use(logger.New())
+	defer app.Shutdown()
 
+	app.Use(favicon.New())
 	app.Static("/", "./static")
 
-	app.Get("/api/categories", handler.GetCategories)
-
-	app.Get("/api/words", handler.GetWords)
-
-	app.Get("/api/words/:category", handler.GetWordsByCategory)
+	router.SetupRoutes(app)
 
 	app.Listen(":8000")
 }
