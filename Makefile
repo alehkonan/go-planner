@@ -19,3 +19,6 @@ build-server:
 dev-server:
 	-cd ./server && [ ! -f ./bin/air ] && curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s
 	cd ./server && ./bin/air
+
+dev-frontend:
+	cd ./client && npm run dev
