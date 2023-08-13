@@ -1,5 +1,4 @@
 .env
 .vscode
-.air.toml
 tmp
 server/bin/air
