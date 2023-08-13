@@ -14,6 +14,7 @@ func SetupRoutes(app *fiber.App) {
 	// Categories
 	categoryApi := api.Group("/category")
 	categoryApi.Get("/", handler.GetCategories)
+	categoryApi.Post("/", handler.CreateCategory)
 
 	// Words
 	wordApi := api.Group("/word")

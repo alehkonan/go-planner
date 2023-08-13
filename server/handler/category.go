@@ -14,3 +14,20 @@ func GetCategories(c *fiber.Ctx) error {
 
 	return c.JSON(categories)
 }
+
+func CreateCategory(c *fiber.Ctx) error {
+	type NewCategory struct {
+		Name string `json:"name"`
+	}
+	newCategory := new(NewCategory)
+
+	if err := c.BodyParser(newCategory); err != nil {
+		return err
+	}
+
+	database.Instance.Create(&models.Category{
+		Name: newCategory.Name,
+	})
+
+	return c.JSON("Category created")
+}
