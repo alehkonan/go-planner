@@ -14,5 +14,5 @@ func main() {
 
 	router.SetupRoutes(app)
 
-	log.Panic(app.Listen("localhost:8000"))
+	log.Panic(app.Listen(":8000"))
 }
