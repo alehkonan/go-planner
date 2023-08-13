@@ -3,25 +3,19 @@ package models
 import (
 	"database/sql"
 	"time"
-
-	"gorm.io/gorm"
 )
 
 type Category struct {
-	gorm.Model
-
-	ID 						uint						`json:"id"`
+	ID 						uint						`gorm:"primaryKey" json:"id"`
 	Name 					string					`json:"name"`
-	Picture_url 	sql.NullString	`json:"pictureUrl"`
-	Created_at 		time.Time				`json:"createdAt"`
-	UpdatedAt			time.Time				`json:"updatedAt"`
-	DeletedAt			sql.NullTime		`json:"deletedAt"`
+	Picture_url 	*string					`json:"pictureUrl"`
+	CreatedAt 		*time.Time			`json:"createdAt"`
+	UpdatedAt			*time.Time			`json:"updatedAt"`
+	DeletedAt			*time.Time			`json:"deletedAt"`
 }
 
 type Word struct {
-	gorm.Model
-
-	ID 						uint						`json:"id"`
+	ID 						uint						`gorm:"primaryKey" json:"id"`
 	En 						string					`json:"en"`
 	Ka 						string					`json:"ka"`
 	Transcription	sql.NullString	`json:"transcription"`
