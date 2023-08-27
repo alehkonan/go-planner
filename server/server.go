@@ -14,5 +14,8 @@ func main() {
 
 	router.SetupRoutes(app)
 
+	app.Static("/", "./static")
+
 	log.Panic(app.Listen(":8000"))
+
 }
