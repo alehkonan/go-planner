@@ -5,3 +5,5 @@ singleQuote: true
 printWidth: 80
 bracketSpacing: true
 endOfLine: lf
+plugins:
+  - prettier-plugin-tailwindcss
