@@ -1,8 +1,23 @@
+import plugin from 'tailwindcss/plugin';
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{ts,tsx}'],
+  content: ['./src/**/*.{html,ts,tsx}'],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addComponents, theme }) => {
+      addComponents({
+        '.button': {
+          padding: '4px',
+          'background-color': theme('colors.red.600'),
+
+          '&:hover': {
+            'background-color': theme('colors.red.200'),
+          },
+        },
+      });
+    }),
+  ],
 };
