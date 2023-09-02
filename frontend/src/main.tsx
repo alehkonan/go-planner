@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { App } from './app';
+import { IdbProvider } from './services/indexedDb/provider';
 
 const rootElement = document.getElementById('root');
 
@@ -12,7 +13,9 @@ if (rootElement) {
 
   root.render(
     <React.StrictMode>
-      <App />
+      <IdbProvider>
+        <App />
+      </IdbProvider>
     </React.StrictMode>,
   );
 }
