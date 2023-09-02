@@ -28,6 +28,11 @@ services:
     depends_on:
       - db
 
+  client:
+    build: ./frontend
+    ports:
+      - '80:80'
+
 volumes:
   db:
     driver: local

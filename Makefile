@@ -16,6 +16,12 @@ build-server:
 	docker-compose up --build -d server
 	docker logs -f go-start-server-1
 
+build-client:
+	docker-compose up --build -d client
+
 dev-server:
 	-cd ./server && [ ! -f ./bin/air ] && curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s
 	cd ./server && ./bin/air
+
+dev-client:
+	cd ./frontend && npm run dev
