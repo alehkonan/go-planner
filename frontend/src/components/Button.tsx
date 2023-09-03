@@ -8,7 +8,7 @@ export const Button = ({ className, type = 'button', ...props }: Props) => {
     <button
       className={twMerge([
         'rounded-lg p-4 shadow',
-        'bg-component-background',
+        'bg-rose-50',
         'font-semibold',
         className,
       ])}
