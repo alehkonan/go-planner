@@ -1,5 +1,6 @@
 import { Button } from '../components/Button';
 import { Dialog } from '../components/Dialog';
+import { Title } from '../components/Title';
 import { useDialog } from '../hooks/useDialog';
 
 export const GameWidget = () => {
@@ -9,8 +10,7 @@ export const GameWidget = () => {
     <div className="grid place-items-center">
       <Button onClick={dialog.open}>Let&apos;s go</Button>
       <Dialog ref={dialog.ref}>
-        <p>Dialog content</p>
-        <Button onClick={dialog.close}>Close</Button>
+        <Title>Game</Title>
       </Dialog>
     </div>
   );
