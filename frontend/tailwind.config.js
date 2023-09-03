@@ -2,11 +2,6 @@
 export default {
   content: ['./src/**/*.{html,ts,tsx}'],
   theme: {
-    colors: {
-      transparent: 'transparent',
-      border: 'hsl(0, 0%, 80%)',
-      'component-background': 'hsl(0, 100%, 95%)',
-    },
     extend: {
       keyframes: {
         appear: {
