@@ -1,10 +1,8 @@
 import { type IDBPDatabase } from 'idb';
 import { createContext } from 'react';
 
-import { type Database } from './create';
+import { type Database } from './database';
 
-type Context = {
-  db: IDBPDatabase<Database> | undefined;
-};
+export type IdbInstance = IDBPDatabase<Database> | null;
 
-export const IdbContext = createContext<Context | null>(null);
+export const IdbContext = createContext<IdbInstance>(null);
