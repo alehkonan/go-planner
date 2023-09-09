@@ -4,25 +4,25 @@ import { Button } from '../components/Button';
 import { Dialog } from '../components/Dialog';
 import { Title } from '../components/Title';
 import { useDialog } from '../hooks/useDialog';
-import { useIdb } from '../services/indexedDb/useIdb';
-import type { Word } from '../types';
+import { useDataService } from '../providers/DataService';
+import { Word } from '../types';
 
 export const StoreWidget = () => {
+  const dialog = useDialog();
+  const dataService = useDataService();
+
   const [words, setWords] = useState<Word[]>([]);
 
-  const dialog = useDialog();
-  const db = useIdb();
-
   useEffect(() => {
-    db?.getAll('words').then(setWords);
-  }, [db]);
+    dataService.getAllWords().then(setWords);
+  }, [dataService]);
 
   return (
     <div>
       <Button onClick={dialog.open}>Open store</Button>
       <Dialog ref={dialog.ref}>
         <Title>All words</Title>
-        <p className="text-gray-300 grid grid-cols-2">
+        <p className="grid grid-cols-2 text-gray-300">
           <span>Original</span>
           <span>Translation</span>
         </p>
