@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import {
   type ComponentProps,
   forwardRef,
@@ -6,10 +8,10 @@ import {
 } from 'react';
 import { twJoin } from 'tailwind-merge';
 
-type Props = ComponentProps<'dialog'>;
+type Props = Omit<ComponentProps<'dialog'>, 'style' | 'className'>;
 
 export const Dialog = forwardRef<HTMLDialogElement, PropsWithChildren<Props>>(
-  ({ className, children, ...props }, ref) => {
+  ({ children, ...props }, ref) => {
     const onClose = () => {
       const r = ref as MutableRefObject<HTMLDialogElement>;
       r.current.close();
@@ -19,26 +21,13 @@ export const Dialog = forwardRef<HTMLDialogElement, PropsWithChildren<Props>>(
       <dialog
         ref={ref}
         className={twJoin([
-          'relative',
-          'w-11/12 max-w-3xl rounded-lg p-2',
-          'overflow-auto border',
+          'overflow-auto',
           'backdrop:bg-transparent backdrop:backdrop-blur',
           'animate-appear',
-          className,
         ])}
+        onClick={(e) => e.target === e.currentTarget && onClose()}
         {...props}
       >
-        <button
-          className={twJoin([
-            'grid h-10 w-10 place-items-center',
-            'absolute right-0 top-0 rounded-lg',
-            'hover:bg-rose-50 text-xl transition-colors',
-          ])}
-          type="button"
-          onClick={onClose}
-        >
-          x
-        </button>
         {children}
       </dialog>
     );
