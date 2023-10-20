@@ -1,8 +1,7 @@
-package router
+package main
 
 import (
-	"server/handler"
-
+	"github.com/alehkonan/go-start-api/internal/handlers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -13,11 +12,11 @@ func SetupRoutes(app *fiber.App) {
 
 	// Categories
 	categoryApi := api.Group("/category")
-	categoryApi.Get("/", handler.GetCategories)
-	categoryApi.Post("/", handler.CreateCategory)
+	categoryApi.Get("/", handlers.GetCategories)
+	categoryApi.Post("/", handlers.CreateCategory)
 
 	// Words
 	wordApi := api.Group("/word")
-	wordApi.Get("/", handler.GetWords)
-	wordApi.Get("/:category", handler.GetWordsByCategory)
+	wordApi.Get("/", handlers.GetWords)
+	wordApi.Get("/:category", handlers.GetWordsByCategory)
 }

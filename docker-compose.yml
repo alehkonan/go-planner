@@ -16,7 +16,7 @@ services:
       - db:/var/lib/postgresql/data
 
   server:
-    build: ./server
+    build: .
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-.env.example}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?err}
@@ -27,11 +27,6 @@ services:
       - '80:8000'
     depends_on:
       - db
-
-  client:
-    build: ./frontend
-    ports:
-      - '80:80'
 
 volumes:
   db:

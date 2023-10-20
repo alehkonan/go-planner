@@ -1,4 +1,4 @@
-module server
+module github.com/alehkonan/go-start-api
 
 go 1.20
 

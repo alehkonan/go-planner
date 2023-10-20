@@ -1,9 +1,8 @@
-package handler
+package handlers
 
 import (
-	"server/database"
-	"server/models"
-
+	"github.com/alehkonan/go-start-api/internal/database"
+	"github.com/alehkonan/go-start-api/internal/models"
 	"github.com/gofiber/fiber/v2"
 )
 

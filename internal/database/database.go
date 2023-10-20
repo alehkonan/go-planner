@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"server/models"
 
+	"github.com/alehkonan/go-start-api/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

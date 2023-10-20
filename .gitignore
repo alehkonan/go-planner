@@ -1,4 +1,4 @@
 .env
 .vscode
 tmp
-server/bin/air
+bin
