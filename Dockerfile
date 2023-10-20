@@ -8,7 +8,7 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-RUN go build -v -o /usr/local/bin/app/cmd/api .
+RUN go build -v -o /usr/local/bin/app /app/cmd/api/*.go
 
 EXPOSE 80
 

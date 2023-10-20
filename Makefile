@@ -6,7 +6,7 @@ start:
 
 start-database:
 	docker-compose up -d db
-	docker logs -f go-start-db-1
+	docker logs -f go-start-api-db-1
 
 drop-database:
 	docker-compose rm -s db
@@ -18,4 +18,4 @@ start-server:
 
 build-server:
 	docker-compose up --build -d server
-	docker logs -f go-start-server-1
+	docker logs -f go-start-api-server-1
